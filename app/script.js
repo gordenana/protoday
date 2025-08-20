@@ -510,10 +510,7 @@ function handleNewGameClick(gameData, gameId) {
 
 // Handle animation IP item clicks (spotlight with sound)
 function handleAnimationClick(animationData) {
-    // Play the tap sound
-    playAudio('audio/tap_on_character.mp3');
-    
-    // Show the magical curtain screen
+    // Show the magical curtain screen (no immediate sound)
     showCurtainScreen();
 }
 
@@ -535,10 +532,10 @@ function showCurtainScreen() {
     curtainScreen.classList.remove('hidden');
     currentScreen = 'curtains';
     
-    // Play voice instruction after 3 seconds to avoid audio overlap
+    // Play voice instruction after 1 second
     setTimeout(() => {
         playAudio('audio/pull to open.mp3');
-    }, 3000);
+    }, 1000);
 }
 
 function openCurtains() {
@@ -547,10 +544,11 @@ function openCurtains() {
     // Add opening animation class
     curtainStage.classList.add('curtains-opening');
     
-    // Optional: Add some flourish sound or celebration after curtains open
+    // Play "coming soon" sound after 1 second delay
     setTimeout(() => {
+        playAudio('audio/tap_coming_soon.mp3');
         console.log('🎉 Mickey revealed! Welcome to Mickey\'s world!');
-    }, 1200); // Match the CSS transition duration
+    }, 1000);
 }
 
 // Navigation functions
