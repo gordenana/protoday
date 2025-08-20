@@ -794,22 +794,20 @@ input:checked + .slider:before {
     left: 50%;
     transform: translateX(-50%);
     width: 120px;
-    height: calc(100vh - 80px); /* Take full viewport height minus header */
+    height: calc(100vh - 140px); /* Height until text area starts */
     z-index: 215;
     cursor: pointer;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: stretch; /* Stretch to fill the container */
     padding-top: 20px;
-    padding-bottom: 120px; /* Leave space for text */
     transition: opacity 0.3s ease;
 }
 
 .rope-image {
     width: 80px;
-    height: calc(100vh - 200px); /* Use full viewport height minus header and text space */
-    min-height: 400px; /* Ensure minimum rope length */
-    object-fit: contain;
+    height: calc(100vh - 160px); /* Extend until text starts (80px header + 80px text area) */
+    object-fit: cover; /* Use cover to fill the height completely */
     object-position: top;
     transition: transform 0.2s ease;
 }
@@ -883,13 +881,13 @@ input:checked + .slider:before {
     
     .rope-container {
         width: 100px;
-        height: calc(100vh - 60px);
+        height: calc(100vh - 130px);
     }
     
     .rope-image {
         width: 70px;
-        height: calc(100vh - 180px);
-        min-height: 300px;
+        height: calc(100vh - 150px);
+        object-fit: cover;
     }
     
     .mickey-reveal {
@@ -913,13 +911,13 @@ input:checked + .slider:before {
     
     .rope-container {
         width: 80px;
-        height: calc(100vh - 40px);
+        height: calc(100vh - 120px);
     }
     
     .rope-image {
         width: 60px;
-        height: calc(100vh - 160px);
-        min-height: 250px;
+        height: calc(100vh - 140px);
+        object-fit: cover;
     }
     
     .mickey-reveal {
