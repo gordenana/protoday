@@ -513,8 +513,8 @@ function handleAnimationClick(animationData) {
     // Play the tap sound
     playAudio('audio/tap_on_character.mp3');
     
-    // Show coming soon screen
-    showDummyScreen('Coming Soon!');
+    // Show the magical curtain screen
+    showCurtainScreen();
 }
 
 // Audio utility function
@@ -529,7 +529,29 @@ function playAudio(audioPath) {
     }
 }
 
-// Note: Lottie animation loader function removed - now using simple GIF implementation
+// Curtain Screen Functions
+function showCurtainScreen() {
+    const curtainScreen = document.getElementById('curtain-screen');
+    curtainScreen.classList.remove('hidden');
+    currentScreen = 'curtains';
+    
+    // Play voice instruction after 3 seconds to avoid audio overlap
+    setTimeout(() => {
+        playAudio('audio/pull to open.mp3');
+    }, 3000);
+}
+
+function openCurtains() {
+    const curtainStage = document.querySelector('.curtain-stage');
+    
+    // Add opening animation class
+    curtainStage.classList.add('curtains-opening');
+    
+    // Optional: Add some flourish sound or celebration after curtains open
+    setTimeout(() => {
+        console.log('🎉 Mickey revealed! Welcome to Mickey\'s world!');
+    }, 1200); // Match the CSS transition duration
+}
 
 // Navigation functions
 function navigateTo(screenName) {
@@ -584,6 +606,13 @@ function goBack() {
     document.getElementById('dummy-screen').classList.add('hidden');
     document.getElementById('playing-screen').classList.add('hidden');
     document.getElementById('upgrade-screen').classList.add('hidden');
+    document.getElementById('curtain-screen').classList.add('hidden');
+    
+    // Reset curtain state if going back from curtains
+    const curtainStage = document.querySelector('.curtain-stage');
+    if (curtainStage) {
+        curtainStage.classList.remove('curtains-opening');
+    }
     
     currentScreen = 'home';
 }

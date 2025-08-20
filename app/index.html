@@ -164,6 +164,46 @@
         </div>
     </div>
 
+    <!-- Curtain Screen -->
+    <div id="curtain-screen" class="curtain-screen hidden">
+        <header class="curtain-header">
+            <button class="back-btn" onclick="goBack()">
+                <span class="back-icon">←</span>
+                Back
+            </button>
+        </header>
+        <div class="curtain-stage">
+            <!-- Background -->
+            <div class="curtain-background"></div>
+            
+            <!-- Mickey Home (revealed behind curtains) -->
+            <div class="mickey-reveal">
+                <img src="curtains/Mickey_home.jpg" alt="Mickey's Home" class="mickey-home-image">
+            </div>
+            
+            <!-- Left Curtain -->
+            <div class="curtain left-curtain">
+                <img src="curtains/left.png" alt="Left Curtain" class="curtain-image">
+            </div>
+            
+            <!-- Right Curtain -->
+            <div class="curtain right-curtain">
+                <img src="curtains/right.png" alt="Right Curtain" class="curtain-image">
+            </div>
+            
+            <!-- Rope (Interactive) -->
+            <div class="rope-container" onclick="openCurtains()">
+                <img src="curtains/rope.png" alt="Pull to Open" class="rope-image">
+                <div class="rope-tap-area"></div>
+            </div>
+            
+            <!-- Pull to Open Text -->
+            <div class="pull-text">
+                <h2>Pull to open</h2>
+            </div>
+        </div>
+    </div>
+
     <!-- Dummy Screen -->
     <div id="dummy-screen" class="dummy-screen hidden">
         <header class="dummy-header">
