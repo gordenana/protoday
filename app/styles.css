@@ -722,20 +722,24 @@ input:checked + .slider:before {
 /* Mickey Reveal (behind curtains initially) */
 .mickey-reveal {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    max-width: 600px;
-    height: auto;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: 202;
+    opacity: 0; /* Hidden initially until curtains open */
+    transition: opacity 0.5s ease 1s; /* Fade in with 1s delay after curtains start opening */
 }
 
 .mickey-home-image {
     width: 100%;
-    height: auto;
-    border-radius: 20px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+    height: 100%;
+    object-fit: cover; /* Fill the entire screen */
+}
+
+/* Show Mickey when curtains open */
+.curtains-opening .mickey-reveal {
+    opacity: 1;
 }
 
 /* Curtains */
@@ -749,12 +753,12 @@ input:checked + .slider:before {
 
 .left-curtain {
     left: 0;
-    width: 60%;
+    width: calc(50% - 5px); /* Separate curtains by 10px total (5px each side) */
 }
 
 .right-curtain {
     right: 0;
-    width: 60%;
+    width: calc(50% - 5px); /* Separate curtains by 10px total (5px each side) */
 }
 
 .curtain-image {
@@ -773,6 +777,16 @@ input:checked + .slider:before {
     transform: translateX(100%);
 }
 
+/* Hide rope and text when curtains open */
+.curtains-opening .rope-container {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.curtains-opening .pull-text {
+    opacity: 0;
+}
+
 /* Rope */
 .rope-container {
     position: absolute;
@@ -780,20 +794,21 @@ input:checked + .slider:before {
     left: 50%;
     transform: translateX(-50%);
     width: 120px;
-    height: 200px;
+    height: 100%; /* Take full screen height */
     z-index: 215;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     padding-top: 20px;
+    transition: opacity 0.3s ease;
 }
 
 .rope-image {
     width: 80px;
-    height: auto;
-    max-height: 180px;
+    height: calc(100vh - 140px); /* Full height minus padding for text */
     object-fit: contain;
+    object-position: top;
     transition: transform 0.2s ease;
 }
 
@@ -826,6 +841,8 @@ input:checked + .slider:before {
     z-index: 216;
     color: white;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    width: 100%; /* Ensure full width for proper centering */
+    transition: opacity 0.3s ease;
 }
 
 .pull-text h2 {
@@ -834,6 +851,7 @@ input:checked + .slider:before {
     margin: 0;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
     animation: pulseText 2s ease-in-out infinite;
+    text-align: center; /* Force center alignment */
 }
 
 /* Text pulse animation */
@@ -866,12 +884,12 @@ input:checked + .slider:before {
     
     .rope-image {
         width: 70px;
-        max-height: 160px;
+        height: calc(100vh - 120px);
     }
     
     .mickey-reveal {
-        width: 85%;
-        max-width: 500px;
+        width: 100%;
+        height: 100%;
     }
     
     .curtain-header {
@@ -892,16 +910,16 @@ input:checked + .slider:before {
     
     .rope-image {
         width: 60px;
-        max-height: 140px;
+        height: calc(100vh - 100px);
     }
     
     .mickey-reveal {
-        width: 90%;
-        max-width: 400px;
+        width: 100%;
+        height: 100%;
     }
     
     .left-curtain, .right-curtain {
-        width: 65%;
+        width: calc(50% - 3px); /* Smaller gap on mobile */
     }
 }
 
