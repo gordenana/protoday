@@ -50,12 +50,14 @@ const sampleData = {
         { name: 'Science Lab', tag: 'Science', ip: 'blippi' }
     ],
     ip_feed: [
-        { name: 'Lessons', description: 'Interactive learning lessons', ip: 'lingokids' },
-        { name: 'Lectoescritura', description: 'Reading and writing skills', ip: 'lingokids' },
-        { name: 'Matemáticas', description: 'Fun math activities', ip: 'lingokids' },
-        { name: 'Blippi Adventures', description: 'Educational videos and games', ip: 'blippi' },
-        { name: 'Pocoyo World', description: 'Colorful learning experiences', ip: 'pocoyo' },
-        { name: 'Story Time', description: 'Interactive storytelling', ip: 'lingokids' }
+        { name: 'Blippi', description: 'Educational adventures', ip: 'blippi', imagePath: 'ip_feed/blippi/16gzwt1z8awkhryivyiza1is85h1.jpeg' },
+        { name: 'Spotlight', description: 'Coming Soon!', ip: 'special', type: 'animation', animationPath: 'animations/spotlight animation.json' },
+        { name: 'Pocoyo', description: 'Colorful learning', ip: 'pocoyo', imagePath: 'ip_feed/pocoyo/m3ujlg7f0dg7nrtppdqin9xlt80t.jpeg' },
+        { name: 'Moana', description: 'Ocean adventures', ip: 'disney', imagePath: 'ip_feed/disney/Moana.png' },
+        { name: 'Lingokids 1', description: 'Learning fun', ip: 'lingokids', imagePath: 'ip_feed/lingokids/o50jtswuoh8k8x4kxy37yhiesbvq.jpeg' },
+        { name: 'Lingokids 2', description: 'Interactive lessons', ip: 'lingokids', imagePath: 'ip_feed/lingokids/qtbn3r2kpevfoa9hityje3go0hqy.jpeg' },
+        { name: 'Lingokids 3', description: 'Educational games', ip: 'lingokids', imagePath: 'ip_feed/lingokids/ur9hp54ugj6z00sjjrjemtr1qb18.jpeg' },
+        { name: 'Lingokids 4', description: 'Learning activities', ip: 'lingokids', imagePath: 'ip_feed/lingokids/wlsuq5qk0etz9jugk6yh2ghcfivo.jpeg' }
     ],
     topics_feed: [
         { name: 'Counting', category: 'Math', ip: 'lingokids' },
@@ -270,27 +272,41 @@ function createGameElement(game, index, feedType = 'games') {
 function createIPElement(ip, index) {
     const element = document.createElement('div');
     element.className = 'feed-item ip-item';
-    element.onclick = () => navigateTo(`${ip.name} Hub`);
     
-    const colors = ipColors[ip.ip] || ipColors.lingokids;
-    const gradient = `linear-gradient(135deg, ${colors[0]} 0%, ${colors[1]} 100%)`;
-    
-    // Try to get a real image from the available images
-    const imagePath = getRandomImagePath('ip_feed', ip.ip);
-    
-    if (imagePath) {
+    // Special handling for animation item
+    if (ip.type === 'animation') {
+        element.onclick = () => handleAnimationClick(ip);
         element.innerHTML = `
-            <img src="${imagePath}" alt="${ip.name}" class="ip-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="placeholder-cover" style="background: ${gradient}; display: none;">
-                📚
-            </div>
+            <lottie-player 
+                src="${ip.animationPath}" 
+                background="transparent" 
+                speed="1" 
+                style="width: 160px; height: 160px; border-radius: 50%;" 
+                loop 
+                autoplay>
+            </lottie-player>
         `;
     } else {
-        element.innerHTML = `
-            <div class="placeholder-cover" style="background: ${gradient};">
-                📚
-            </div>
-        `;
+        element.onclick = () => navigateTo(`${ip.name} Hub`);
+        
+        const colors = ipColors[ip.ip] || ipColors.lingokids;
+        const gradient = `linear-gradient(135deg, ${colors[0]} 0%, ${colors[1]} 100%)`;
+        
+        // Use the specific image path from the data
+        if (ip.imagePath) {
+            element.innerHTML = `
+                <img src="${ip.imagePath}" alt="${ip.name}" class="ip-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="placeholder-cover" style="background: ${gradient}; display: none;">
+                    📚
+                </div>
+            `;
+        } else {
+            element.innerHTML = `
+                <div class="placeholder-cover" style="background: ${gradient};">
+                    📚
+                </div>
+            `;
+        }
     }
     
     return element;
@@ -483,6 +499,27 @@ function handleNewGameClick(gameData, gameId) {
         showUpgradeScreen();
     } else {
         showPlayingScreen(gameData);
+    }
+}
+
+// Handle animation IP item clicks (spotlight with sound)
+function handleAnimationClick(animationData) {
+    // Play the tap sound
+    playAudio('audio/tap_on_character.mp3');
+    
+    // Show coming soon screen
+    showDummyScreen('Coming Soon!');
+}
+
+// Audio utility function
+function playAudio(audioPath) {
+    try {
+        const audio = new Audio(audioPath);
+        audio.play().catch(error => {
+            console.log('Audio play failed:', error);
+        });
+    } catch (error) {
+        console.log('Audio creation failed:', error);
     }
 }
 
