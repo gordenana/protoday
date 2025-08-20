@@ -51,7 +51,7 @@ const sampleData = {
     ],
     ip_feed: [
         { name: 'Blippi', description: 'Educational adventures', ip: 'blippi', imagePath: 'ip_feed/blippi/16gzwt1z8awkhryivyiza1is85h1.jpeg' },
-        { name: 'Spotlight', description: 'Coming Soon!', ip: 'special', type: 'animation', animationPath: 'animations/spotlight animation.json' },
+        { name: 'Spotlight', description: 'Coming Soon!', ip: 'special', type: 'animation', animationPath: 'animations/spotlight-animation.json' },
         { name: 'Pocoyo', description: 'Colorful learning', ip: 'pocoyo', imagePath: 'ip_feed/pocoyo/m3ujlg7f0dg7nrtppdqin9xlt80t.jpeg' },
         { name: 'Moana', description: 'Ocean adventures', ip: 'disney', imagePath: 'ip_feed/disney/Moana.png' },
         { name: 'Lingokids 1', description: 'Learning fun', ip: 'lingokids', imagePath: 'ip_feed/lingokids/o50jtswuoh8k8x4kxy37yhiesbvq.jpeg' },
@@ -276,16 +276,21 @@ function createIPElement(ip, index) {
     // Special handling for animation item
     if (ip.type === 'animation') {
         element.onclick = () => handleAnimationClick(ip);
-        element.innerHTML = `
-            <lottie-player 
-                src="${ip.animationPath}" 
-                background="transparent" 
-                speed="1" 
-                style="width: 160px; height: 160px; border-radius: 50%;" 
-                loop 
-                autoplay>
-            </lottie-player>
-        `;
+        
+        // Create container for Lottie animation
+        const animationContainer = document.createElement('div');
+        animationContainer.id = `lottie-spotlight-${index}`;
+        animationContainer.style.width = '160px';
+        animationContainer.style.height = '160px';
+        animationContainer.style.borderRadius = '50%';
+        animationContainer.style.overflow = 'hidden';
+        element.appendChild(animationContainer);
+        
+        // Load Lottie animation after element is added to DOM
+        setTimeout(() => {
+            loadLottieAnimation(animationContainer.id, ip.animationPath);
+        }, 100);
+        
     } else {
         element.onclick = () => navigateTo(`${ip.name} Hub`);
         
@@ -520,6 +525,66 @@ function playAudio(audioPath) {
         });
     } catch (error) {
         console.log('Audio creation failed:', error);
+    }
+}
+
+// Lottie animation loader function
+function loadLottieAnimation(containerId, animationPath) {
+    const container = document.getElementById(containerId);
+    if (!container) {
+        console.error('Animation container not found:', containerId);
+        return;
+    }
+    
+    // Check if lottie is available
+    if (typeof lottie === 'undefined') {
+        console.error('Lottie library not loaded');
+        // Fallback to a simple animated div
+        container.innerHTML = `
+            <div style="
+                width: 100%; 
+                height: 100%; 
+                background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+                background-size: 400% 400%;
+                animation: gradientShift 3s ease infinite;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 24px;
+            ">✨</div>
+        `;
+        return;
+    }
+    
+    try {
+        // Load the animation
+        lottie.loadAnimation({
+            container: container,
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: animationPath
+        });
+    } catch (error) {
+        console.error('Lottie animation load failed:', error);
+        // Fallback to animated placeholder
+        container.innerHTML = `
+            <div style="
+                width: 100%; 
+                height: 100%; 
+                background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+                background-size: 400% 400%;
+                animation: gradientShift 3s ease infinite;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 24px;
+            ">✨</div>
+        `;
     }
 }
 

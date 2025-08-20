@@ -657,6 +657,19 @@ input:checked + .slider:before {
     height: 100%;
 }
 
+/* Animation keyframes for fallback spotlight effect */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 /* Mobile Responsive */
 @media (max-width: 768px) {
     .feed-scroll {
