@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lingokids - Learning App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Main App Container -->
+    <div id="app" class="app-container">
+        <!-- Top Bar -->
+        <header class="top-bar">
+            <div class="profile-section">
+                <div class="profile-avatar">
+                    <img src="avatar.png" alt="Profile" class="avatar-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="avatar-placeholder" style="display:none;">👶</div>
+                    <span class="age-badge">5</span>
+                </div>
+                <button class="rewards-icon-btn" onclick="navigateTo('Rewards')">
+                    <img src="rewards.png" alt="Rewards" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <span class="icon" style="display:none;">🏆</span>
+                </button>
+            </div>
+            
+            <div class="logo-section">
+                <h1 class="app-title">LINGOKIDS</h1>
+            </div>
+            
+            <div class="action-section">
+                <button class="icon-btn favorites-btn" onclick="navigateTo('Favorites')">
+                    <img src="heart.png" alt="Favorites" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <span class="icon" style="display:none;">💜</span>
+                </button>
+                <button class="icon-btn search-btn" onclick="navigateTo('Search')">
+                    <img src="search.png" alt="Search" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <span class="icon" style="display:none;">🔍</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Daily Activities Header -->
+        <section class="daily-activities">
+            <h2>Your daily activities</h2>
+        </section>
+
+        <!-- Games Feed -->
+        <section class="feed-section">
+            <div class="feed-container">
+                <div class="feed-scroll" id="games-feed">
+                    <!-- Games will be dynamically loaded here -->
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- IP Feed (Lessons, Lectoescritura, Matemáticas) -->
+        <section class="feed-section ip-feed-section">
+            <h3>Worlds to explore</h3>
+            <div class="feed-container">
+                <div class="feed-scroll" id="ip-feed">
+                    <!-- IP content will be dynamically loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Topics Section -->
+        <section class="topics-section">
+            <h3>Topics</h3>
+            <div class="feed-container">
+                <div class="feed-scroll" id="topics-feed">
+                    <!-- Topics content will be dynamically loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- New Games Feed -->
+        <section class="feed-section new-games-section">
+            <h3>¿Qué hay de nuevo?</h3>
+            <div class="feed-container">
+                <div class="feed-scroll" id="new-feed">
+                    <!-- New games will be dynamically loaded here -->
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Floating Navigation -->
+        <nav class="floating-nav">
+            <button class="nav-item active" onclick="switchMode('home')">
+                <img src="home.png" alt="Home" class="nav-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="nav-icon" style="display:none;">🏠</span>
+                <span class="nav-label">Home</span>
+            </button>
+            <button class="nav-item" onclick="switchMode('games')">
+                <img src="play.png" alt="Play" class="nav-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="nav-icon" style="display:none;">🎮</span>
+                <span class="nav-label">Play</span>
+            </button>
+            <button class="nav-item" onclick="switchMode('lessons')">
+                <img src="lessons.png" alt="Lessons" class="nav-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="nav-icon" style="display:none;">📚</span>
+                <span class="nav-label">Lessons</span>
+            </button>
+            <button class="nav-item" onclick="switchMode('theater')">
+                <img src="theater.png" alt="Theater" class="nav-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="nav-icon" style="display:none;">🎭</span>
+                <span class="nav-label">Theater</span>
+            </button>
+            <button class="nav-item" onclick="switchMode('family')">
+                <img src="family.png" alt="Family" class="nav-icon-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="nav-icon" style="display:none;">👨‍👩‍👧‍👦</span>
+                <span class="nav-label">Family</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Dummy Screen -->
+    <div id="dummy-screen" class="dummy-screen hidden">
+        <header class="dummy-header">
+            <button class="back-btn" onclick="goBack()">
+                <span class="back-icon">←</span>
+                Back
+            </button>
+            <h2 id="dummy-title">Screen Title</h2>
+        </header>
+        <div class="dummy-content">
+            <div class="dummy-placeholder">
+                <h3 id="dummy-message">Loading...</h3>
+                <p>This is a placeholder screen for navigation testing.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
