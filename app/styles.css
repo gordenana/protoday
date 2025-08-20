@@ -694,6 +694,13 @@ input:checked + .slider:before {
     backdrop-filter: blur(10px);
     position: relative;
     z-index: 220;
+    transition: background 0.5s ease, backdrop-filter 0.5s ease;
+}
+
+/* Make header transparent when curtains are opening */
+.curtains-opening .curtain-header {
+    background: transparent;
+    backdrop-filter: none;
 }
 
 .curtain-stage {
