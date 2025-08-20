@@ -722,19 +722,21 @@ input:checked + .slider:before {
 /* Mickey Reveal (behind curtains initially) */
 .mickey-reveal {
     position: absolute;
-    top: 80px; /* Start below the header to avoid cutoff */
+    top: 0; /* Full screen coverage - no blue line */
     left: 0;
     width: 100%;
-    height: calc(100% - 80px); /* Full height minus header space */
+    height: 100%; /* Full height coverage */
     z-index: 202;
     opacity: 0; /* Hidden initially until curtains open */
     transition: opacity 0.5s ease 1s; /* Fade in with 1s delay after curtains start opening */
+    background-color: #2ECC71; /* Green background for any side gaps */
 }
 
 .mickey-home-image {
     width: 100%;
     height: 100%;
     object-fit: cover; /* Fill the entire screen */
+    display: block; /* Ensure no inline spacing */
 }
 
 /* Show Mickey when curtains open */
